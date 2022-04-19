@@ -10,7 +10,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import android.content.pm.PackageManager
+import android.util.Log
 import android.view.ViewGroup
+import com.example.common.dialogs.DialogManager
 import com.example.common.navigation.FragmentContainerWrapper
 import com.example.common.navigation.ScreenNavigator
 import com.example.showToast
@@ -24,6 +26,9 @@ class MainActivity : AppCompatActivity(), FragmentContainerWrapper {
     @Inject
     lateinit var screenNavigator: ScreenNavigator
 
+    @Inject
+    lateinit var dialogManager:DialogManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,6 +36,8 @@ class MainActivity : AppCompatActivity(), FragmentContainerWrapper {
         if (savedInstanceState == null) {
             screenNavigator.openBlankFragment2()
         }
+
+        Log.d("cnrd",dialogManager.toString())
     }
 
     override fun getFragmentContainer(): ViewGroup {

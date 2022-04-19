@@ -1,9 +1,11 @@
 package com.example.notesboats.di
 
 import android.app.Activity
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.FragmentManager
+import com.example.common.dialogs.DialogManager
 import com.example.common.navigation.MyFragmentFactory
 import com.example.common.navigation.FragmentContainerWrapper
 import com.example.common.navigation.FragmentHelper
@@ -13,6 +15,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.scopes.ActivityScoped
 
 @Module
@@ -57,5 +60,15 @@ object ScreenNavigationModule {
     @ActivityScoped
     @Provides
     fun getFragmentFactory():FragmentFactory = MyFragmentFactory()
+
+    @ActivityScoped
+    @Provides
+    fun getDialogManager(
+        @ActivityContext context: Context,
+        fragmentManager: FragmentManager
+    ): DialogManager = DialogManager(
+        context,
+        fragmentManager
+    )
 
 }
