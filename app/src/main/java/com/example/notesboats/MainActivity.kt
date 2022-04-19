@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), FragmentContainerWrapper {
             screenNavigator.openBlankFragment2()
         }
 
+        dialogManager.showSomeInfo("info")
         Log.d("cnrd",dialogManager.toString())
     }
 
