@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity(), FragmentContainerWrapper {
         }
 
         dialogManager.showSomeInfo("info")
+
+
         Log.d("cnrd",dialogManager.toString())
     }
 

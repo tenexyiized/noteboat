@@ -9,19 +9,24 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.example.common.dialogs.PromptDialogEvent
+import com.example.common.eventbus.CustomEventBus
 import com.example.notesboats.R
 import com.example.common.navigation.ScreenNavigator
+import com.example.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BlankFragment2  : Fragment(R.layout.fragment_blank2) {
+class BlankFragment2  : Fragment(R.layout.fragment_blank2),CustomEventBus.Listener {
 
     companion object{
         val  sag = "BlankFragment2"
     }
 
 
+    @Inject
+    lateinit var customEventBus: CustomEventBus
 
     @Inject
     lateinit var screenNavigator: ScreenNavigator
@@ -37,6 +42,8 @@ class BlankFragment2  : Fragment(R.layout.fragment_blank2) {
         Log.d("lifecycle_sc_f", sag + " " +  "onCreate")
         handleBackPress()
     }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,11 +73,13 @@ class BlankFragment2  : Fragment(R.layout.fragment_blank2) {
     override fun onResume() {
         Log.d("lifecycle_sc_f", sag + " " +  "onResume")
         super.onResume()
+        customEventBus.registerListener(this)
     }
 
     override fun onStop() {
         Log.d("lifecycle_sc_f", sag + " " +  "onStop")
         super.onStop()
+        customEventBus.unregisterListener(this)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -95,6 +104,14 @@ class BlankFragment2  : Fragment(R.layout.fragment_blank2) {
 
     override fun toString(): String {
         return sag
+    }
+
+    override fun onEvent(event: Any?) {
+        if(event is PromptDialogEvent){
+            showToast("prompt evvnt")
+        }else{
+            showToast("not prompt evvnt")
+        }
     }
 
     private fun handleBackPress() {
