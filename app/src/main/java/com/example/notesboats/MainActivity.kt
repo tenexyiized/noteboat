@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import com.example.common.dialogs.DialogManager
 import com.example.common.navigation.FragmentContainerWrapper
 import com.example.common.navigation.ScreenNavigator
+import com.example.common.permissions.PermissionsHelper
 import com.example.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -29,6 +30,9 @@ class MainActivity : AppCompatActivity(), FragmentContainerWrapper {
     @Inject
     lateinit var dialogManager:DialogManager
 
+    @Inject
+    lateinit var permissionHelper: PermissionsHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,8 +41,12 @@ class MainActivity : AppCompatActivity(), FragmentContainerWrapper {
             screenNavigator.openBlankFragment2()
         }
 
-        dialogManager.showSomeInfo("info")
+        //dialogManager.showSomeInfo("info")
 
+        permissionHelper.requestPermission(
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            32
+        )
 
         Log.d("cnrd",dialogManager.toString())
     }
@@ -46,5 +54,16 @@ class MainActivity : AppCompatActivity(), FragmentContainerWrapper {
     override fun getFragmentContainer(): ViewGroup {
         return findViewById(R.id.fragment_container_view)
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        permissionHelper.onRequestPermissionsResult(requestCode,permissions,grantResults)
+    }
+
+
 
 }

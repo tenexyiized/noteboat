@@ -27,7 +27,7 @@ class PermissionsHelper(private val mActivity: Activity) :
 
     fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<String>,
+        permissions: Array<out String>,
         grantResults: IntArray
     ) {
         if (permissions.size < 1) {

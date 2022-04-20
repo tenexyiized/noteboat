@@ -13,12 +13,14 @@ import com.example.common.dialogs.PromptDialogEvent
 import com.example.common.eventbus.CustomEventBus
 import com.example.notesboats.R
 import com.example.common.navigation.ScreenNavigator
+import com.example.common.permissions.PermissionsHelper
 import com.example.showToast
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BlankFragment2  : Fragment(R.layout.fragment_blank2),CustomEventBus.Listener {
+class BlankFragment2  : Fragment(R.layout.fragment_blank2),CustomEventBus.Listener,
+    PermissionsHelper.Listener {
 
     companion object{
         val  sag = "BlankFragment2"
@@ -30,6 +32,9 @@ class BlankFragment2  : Fragment(R.layout.fragment_blank2),CustomEventBus.Listen
 
     @Inject
     lateinit var screenNavigator: ScreenNavigator
+
+    @Inject
+    lateinit var permissionsHelper: PermissionsHelper
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -74,12 +79,14 @@ class BlankFragment2  : Fragment(R.layout.fragment_blank2),CustomEventBus.Listen
         Log.d("lifecycle_sc_f", sag + " " +  "onResume")
         super.onResume()
         customEventBus.registerListener(this)
+        permissionsHelper.registerListener(this)
     }
 
     override fun onStop() {
         Log.d("lifecycle_sc_f", sag + " " +  "onStop")
         super.onStop()
         customEventBus.unregisterListener(this)
+        permissionsHelper.unregisterListener(this)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -112,6 +119,18 @@ class BlankFragment2  : Fragment(R.layout.fragment_blank2),CustomEventBus.Listen
         }else{
             showToast("not prompt evvnt")
         }
+    }
+
+    override fun onPermissionDeclined(permission: String?, requestCode: Int) {
+        showToast("declined")
+    }
+
+    override fun onPermissionGranted(permission: String?, requestCode: Int) {
+        showToast("onPermissionGranted")
+    }
+
+    override fun onPermissionDeclinedDontAskAgain(permission: String?, requestCode: Int) {
+        showToast("onPermissionGranted")
     }
 
     private fun handleBackPress() {
