@@ -28,18 +28,8 @@ class FragmentHelper (
         ft.commit()
     }
 
-    //FragmentManager.POP_BACK_STACK_INCLUSIVE
-
     fun popBackTo(backStackName: String? = null, inclusive:Int = 0){
         Log.d("cnrs","pop " + backStackName + inclusive + fragmentManager.backStackEntryCount)
-        var i = 0
-        while (i <  fragmentManager.backStackEntryCount){
-
-            Log.d("cnrs","pop " + fragmentManager.getBackStackEntryAt(i).name)
-
-            fragmentManager.getBackStackEntryAt(i).name
-            i++
-        }
         fragmentManager.popBackStack(backStackName, inclusive)
     }
 
@@ -64,9 +54,6 @@ class FragmentHelper (
             ft.remove(this)
             ft.commit()
         }
-
-        // not sure it is needed; will keep it as a reminder to myself if there will be problems
-        // mFragmentManager.executePendingTransactions();
     }
 
     private fun getCurrentFragment(): Fragment? {
@@ -74,12 +61,9 @@ class FragmentHelper (
     }
 
     private fun getFragmentsHistoryCount(): Int {
-        // TODO: double check that fragments history count equals to backstack entry count
         return fragmentManager.getBackStackEntryCount()
     }
 
-
     private fun getFragmentFrameId(): Int  = fragmentContainerWrapper.getFragmentContainer().getId()
-
 
 }
