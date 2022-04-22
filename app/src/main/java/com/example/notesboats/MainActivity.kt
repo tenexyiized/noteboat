@@ -41,12 +41,12 @@ class MainActivity : AppCompatActivity(), FragmentContainerWrapper {
             screenNavigator.openBlankFragment2()
         }
 
-        //dialogManager.showSomeInfo("info")
+        dialogManager.showSomeInfo("info","a","b","c")
 
-        permissionHelper.requestPermission(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            32
-        )
+//        permissionHelper.requestPermission(
+//            Manifest.permission.READ_EXTERNAL_STORAGE,
+//            32
+//        )
 
         Log.d("cnrd",dialogManager.toString())
     }

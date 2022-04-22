@@ -9,8 +9,8 @@ class DialogManager (
     val fragmentManager:FragmentManager
         ){
 
-    fun showSomeInfo(tag:String){
-        InfoDialog.newInstance().show(
+    fun showSomeInfo(tag:String,title:String, desc:String, btCta:String){
+        InfoDialog.newInstance(title,desc,btCta).show(
             fragmentManager, tag)
     }
 

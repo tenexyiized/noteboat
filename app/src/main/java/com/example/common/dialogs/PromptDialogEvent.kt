@@ -4,5 +4,4 @@ class PromptDialogEvent(val clickedButton: Button) {
     enum class Button {
         POSITIVE, NEGATIVE
     }
-
 }

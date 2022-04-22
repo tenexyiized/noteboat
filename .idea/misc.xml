@@ -6,7 +6,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/fragment_blank2.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/fragment_info_dialog.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/fragment_prompt_dialog.xml" value="0.11911231884057971" />
+        <entry key="app/src/main/res/layout/fragment_prompt_dialog.xml" value="0.25" />
       </map>
     </option>
   </component>
