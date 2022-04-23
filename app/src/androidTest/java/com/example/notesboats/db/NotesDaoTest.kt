@@ -5,6 +5,8 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
+import com.example.notesboats.rules.MainCoroutineRule
+import com.example.notesboats.rules.runBlockingTest
 import com.google.common.truth.Truth
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -21,6 +23,9 @@ class NotesDaoTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
+
+    @get:Rule
+    var coroutineRule = MainCoroutineRule()
 
     private lateinit var database: NotesDatabase
     private lateinit var dao:NotesDao
@@ -40,7 +45,7 @@ class NotesDaoTest {
     }
 
     @Test
-    fun insertNotesIntoDb_DbContaintsItem() = runBlockingTest {
+    fun insertNotesIntoDb_DbContaintsItem() = coroutineRule.runBlockingTest {
         val notes = Notes(
             "hello",
             "cello",
@@ -57,7 +62,7 @@ class NotesDaoTest {
     }
 
     @Test
-    fun deleteNotesAfterInsertion_dbEmpty() = runBlockingTest {
+    fun deleteNotesAfterInsertion_dbEmpty() = coroutineRule.runBlockingTest {
         val noteToBeDeleted = Notes(
             "hello",
             "cello",
@@ -75,7 +80,7 @@ class NotesDaoTest {
     }
 
     @Test
-    fun notesEditedAndInserted_DbHasUpdatedValue() = runBlockingTest {
+    fun notesEditedAndInserted_DbHasUpdatedValue() = coroutineRule.runBlockingTest {
         val noteToBeInserted = Notes(
             "hello",
             "cello",
