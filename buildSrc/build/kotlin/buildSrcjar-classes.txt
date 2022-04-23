@@ -1,0 +1,1 @@
+/Users/abhishekchauhan/AndroidStudioProjects/NotesBoats/buildSrc/build/classes/kotlin/main/Dependencies.class:/Users/abhishekchauhan/AndroidStudioProjects/NotesBoats/buildSrc/build/classes/kotlin/main/Versions.class
