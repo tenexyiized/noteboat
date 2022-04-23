@@ -9,23 +9,32 @@ class DialogManager (
     val fragmentManager:FragmentManager
         ){
 
+    private var currentlyShownTag:String?=null
+
     fun showSomeInfo(tag:String,title:String, desc:String, btCta:String){
+        hideCurrenlyShownDialog()
+        currentlyShownTag = tag
         InfoDialog.newInstance(title,desc,btCta).show(
             fragmentManager, tag)
     }
 
     fun showSomePrompt(tag:String,title:String, desc:String, btCta1:String, btCta2:String){
+        hideCurrenlyShownDialog()
+        currentlyShownTag = tag
         PromptDialog.newInstance(title, desc, btCta1, btCta2).show(
             fragmentManager, tag)
     }
 
-    fun getShownDialogTag(): String? {
+    private fun hideCurrenlyShownDialog(){
         for (fragment in fragmentManager.getFragments()) {
             if (fragment is DialogFragment) {
-                return fragment.getTag()
+                return fragment.dismiss()
             }
         }
-        return null
+    }
+
+    fun getShownDialogTag(): String? {
+        return currentlyShownTag
     }
 
 }
