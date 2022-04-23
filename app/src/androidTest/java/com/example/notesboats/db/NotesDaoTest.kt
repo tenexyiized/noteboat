@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.google.common.truth.Truth
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
@@ -39,7 +40,7 @@ class NotesDaoTest {
     }
 
     @Test
-    fun insertNotes() = runBlockingTest {
+    fun insertNotesIntoDb_DbContaintsItem() = runBlockingTest {
         val notes = Notes(
             "hello",
             "cello",
@@ -56,18 +57,46 @@ class NotesDaoTest {
     }
 
     @Test
-    fun deleteNotes() = runBlockingTest {
-        val notes = Notes(
+    fun deleteNotesAfterInsertion_dbEmpty() = runBlockingTest {
+        val noteToBeDeleted = Notes(
             "hello",
             "cello",
-            System.currentTimeMillis()
+            System.currentTimeMillis(),
+            4
         )
 
-        dao.deleteNotes(notes)
+        dao.insertNotes(noteToBeDeleted)
+        dao.deleteNotes(noteToBeDeleted)
 
-        var insertedNote = dao.getAllNotes()
+        var insertedNote = dao.getAllNotes().first()
 
-       // Truth.assertThat(insertedNote).is
+        Truth.assertThat(insertedNote).isEmpty()
 
     }
+
+    @Test
+    fun notesEditedAndInserted_DbHasUpdatedValue() = runBlockingTest {
+        val noteToBeInserted = Notes(
+            "hello",
+            "cello",
+            System.currentTimeMillis(),
+            4
+        )
+
+        dao.insertNotes(noteToBeInserted)
+
+        val editedNote =  noteToBeInserted.copy(
+            title = "jello"
+        )
+
+        dao.insertNotes(editedNote)
+
+        var noteList = dao.getAllNotes().first()
+
+        Truth.assertThat(editedNote).isEqualTo(noteList.get(0))
+        Truth.assertThat(noteList).hasSize(1)
+
+
+    }
+
 }
