@@ -44,6 +44,7 @@ class InfoDialog : DialogFragment(R.layout.fragment_info_dialog) {
         bt1.text = arguments?.getString("btCta")
         bt1.setOnClickListener {
             customEventBus.postEvent(InfoDialogEvent())
+            dismiss()
         }
     }
 

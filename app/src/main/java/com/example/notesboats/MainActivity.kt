@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), FragmentContainerWrapper {
             screenNavigator.openBlankFragment2()
         }
 
-        dialogManager.showSomeInfo("info","a","b","c")
+        dialogManager.showSomePrompt("info","a","b","c","d")
 
 //        permissionHelper.requestPermission(
 //            Manifest.permission.READ_EXTERNAL_STORAGE,

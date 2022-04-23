@@ -14,8 +14,8 @@ class DialogManager (
             fragmentManager, tag)
     }
 
-    fun showSomePrompt(tag:String){
-        PromptDialog.newInstance().show(
+    fun showSomePrompt(tag:String,title:String, desc:String, btCta1:String, btCta2:String){
+        PromptDialog.newInstance(title, desc, btCta1, btCta2).show(
             fragmentManager, tag)
     }
 
