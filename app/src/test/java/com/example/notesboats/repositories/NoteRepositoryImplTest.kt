@@ -3,7 +3,7 @@ package com.example.notesboats.repositories
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.notesboats.db.Notes
 import com.example.notesboats.db.NotesDao
-import com.example.notesboats.rules.MainCoroutineRule
+import com.example.notesboats.rules.main.MainCoroutineRule
 import com.google.common.truth.Truth
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -32,6 +32,11 @@ class NoteRepositoryImplTest {
 
     @After
     fun tearDown() {
+    }
+
+    @Test
+    fun anbc(){
+        Truth.assertThat( mutableListOf<Notes>() ).isEmpty()
     }
 
     @Test

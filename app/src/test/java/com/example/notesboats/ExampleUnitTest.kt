@@ -20,9 +20,7 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
 
-        runBlockingTest {
 
-        }
 
         assertEquals(4, 2 + 2)
     }

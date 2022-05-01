@@ -11,7 +11,6 @@ class NoteRepositoryImpl(val notesDao: NotesDao) : NotesRepository{
     }
 
     override suspend fun deleteNotes(notes: Notes) {
-        TODO("Not yet implemented")
     }
 
     override fun getAllNotes(): Flow<List<Notes>> = notesDao.getAllNotes()

@@ -1,6 +1,6 @@
 package com.example.notesboats.rules.main
 
-import com.example.notesboats.rules.CoroutineScope
+import com.example.notesboats.rules.main.CoroutineScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.*
