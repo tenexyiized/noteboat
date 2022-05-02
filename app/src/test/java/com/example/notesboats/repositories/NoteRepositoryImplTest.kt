@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.notesboats.db.Notes
 import com.example.notesboats.db.NotesDao
 import com.example.notesboats.rules.main.MainCoroutineRule
+import com.example.notesboats.rules.main.runBlockingTest
 import com.google.common.truth.Truth
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -40,7 +41,7 @@ class NoteRepositoryImplTest {
     }
 
     @Test
-    fun NotesInserted_Success() = coroutineRule.testDispatcher.runBlockingTest {
+    fun NotesInserted_Success() = coroutineRule.runBlockingTest {
         val notes = Notes(
             "hello",
             "cello",
@@ -51,6 +52,22 @@ class NoteRepositoryImplTest {
         Truth.assertThat( notesRepositoryImpl.getAllNotes().first() ).contains(notes)
 
     }
+
+    @Test
+    fun notesDeletedSuccess() = coroutineRule.runBlockingTest {
+        val note = Notes(
+            "hello",
+            "cello",
+            System.currentTimeMillis(),
+            4
+        )
+        notesRepositoryImpl.insertNotes(note)
+        notesRepositoryImpl.deleteNotes(note)
+        Truth.assertThat(notesRepositoryImpl.getAllNotes().first()).doesNotContain(note)
+
+    }
+
+
 
         class NotesDaoTd : NotesDao{
 
