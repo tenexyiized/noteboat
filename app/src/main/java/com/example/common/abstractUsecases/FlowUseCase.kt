@@ -1,4 +1,4 @@
-package com.example.common.usecases
+package com.example.common.abstractUsecases
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
