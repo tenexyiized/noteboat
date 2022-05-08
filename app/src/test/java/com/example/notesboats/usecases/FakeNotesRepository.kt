@@ -20,7 +20,7 @@ class FakeNotesRepository : NotesRepository{
 
     override fun getAllNotes(): Flow<List<Notes>> = flow {
         isListFetched = true
-        emit(mutableListOf())
+        emit(list)
     }
 
 }
