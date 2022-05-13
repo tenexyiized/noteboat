@@ -101,7 +101,22 @@ class NotesDaoTest {
         Truth.assertThat(editedNote).isEqualTo(noteList.get(0))
         Truth.assertThat(noteList).hasSize(1)
 
-
     }
 
+    @Test
+    fun getNoteById_Success_NoteRetreived() = runBlockingTest {
+        val noteToBeInserted = Notes(
+            "hello",
+            "cello",
+            System.currentTimeMillis(),
+            4
+        )
+
+        dao.insertNotes(noteToBeInserted)
+
+        val notes = dao.getNote(4)
+
+        Truth.assertThat(noteToBeInserted).isEqualTo(notes)
+
+    }
 }
