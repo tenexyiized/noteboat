@@ -118,9 +118,13 @@ class NotesDaoTest {
 
         Truth.assertThat(noteToBeInserted).isEqualTo(notes)
 
+
+
+    }
+
+    @Test
+    fun getNoteById_NoteNotPresentInDb_Null_Received() = runBlockingTest{
         val notesToBeNNull = dao.getNote(5)
-
         Truth.assertThat(notesToBeNNull).isNull()
-
     }
 }
