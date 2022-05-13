@@ -8,8 +8,6 @@ import androidx.test.filters.SmallTest
 import com.example.notesboats.rules.MainCoroutineRule
 import com.example.notesboats.rules.runBlockingTest
 import com.google.common.truth.Truth
-import dagger.hilt.android.testing.HiltAndroidRule
-import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
@@ -18,16 +16,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import javax.inject.Inject
-import javax.inject.Named
 
 @RunWith(AndroidJUnit4::class)
 @SmallTest
-@HiltAndroidTest
 class NotesDaoTest {
-
-    @get:Rule
-    var hiltAndroidRule = HiltAndroidRule(this)
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -35,16 +27,16 @@ class NotesDaoTest {
     @get:Rule
     var coroutineRule = MainCoroutineRule()
 
-    @Inject
-    @Named("test_db")
-    lateinit var database: NotesDatabase
+    private lateinit var database: NotesDatabase
     private lateinit var dao:NotesDao
 
     @Before
     fun setUp(){
-        hiltAndroidRule.inject()
+        database = Room.inMemoryDatabaseBuilder(
+            ApplicationProvider.getApplicationContext(),
+            NotesDatabase::class.java
+        ).allowMainThreadQueries().build()
         dao = database.notesDao()
-        var site = "interviewbit"
     }
 
     @After
