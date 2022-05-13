@@ -89,8 +89,6 @@ class NoteRepositoryImplTest {
 
     }
 
-
-
         class NotesDaoTd : NotesDao{
 
             var list = mutableListOf<Notes>()

@@ -9,6 +9,7 @@ class FakeNotesRepository : NotesRepository{
     var list = mutableListOf<Notes>()
 
     var isListFetched  = false
+    var idToBeRetreived:Long = -1
 
     override suspend fun insertNotes(notes: Notes):Long {
         list.add(notes)
@@ -25,6 +26,7 @@ class FakeNotesRepository : NotesRepository{
     }
 
     override suspend fun getNote(id: Long): Notes? {
+        idToBeRetreived = id
        return null
     }
 
