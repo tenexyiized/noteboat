@@ -12,15 +12,14 @@ import javax.inject.Singleton
 class NotesAddUseCase @Inject constructor(
     val repository: NotesRepository,
     @IoDispatcher dispatcher: CoroutineDispatcher
-) : UseCase<Notes, Boolean>(dispatcher) {
+) : UseCase<Notes, Long>(dispatcher) {
 
-    override suspend fun execute(parameters: Notes): Boolean {
+    override suspend fun execute(parameters: Notes): Long {
         try{
-            repository.insertNotes(parameters)
+            return repository.insertNotes(parameters)
         }catch (e:Exception){
             throw e
         }
-        return true
     }
 
 }

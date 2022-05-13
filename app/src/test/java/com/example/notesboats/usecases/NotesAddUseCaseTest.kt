@@ -1,5 +1,6 @@
 package com.example.notesboats.usecases
 
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.notesboats.db.Notes
 import com.example.notesboats.rules.main.MainCoroutineRule
@@ -8,6 +9,7 @@ import com.google.common.truth.Truth
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.*
 import com.example.common.result.Result
+import com.example.common.result.successOr
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -25,7 +27,7 @@ class NotesAddUseCaseTest {
 
     @Before
     fun setUp() {
-        var fakeNotesRepository:FakeNotesRepository = FakeNotesRepository()
+        var fakeNotesRepository = FakeNotesRepository()
         notesAddUseCase = NotesAddUseCase(
             fakeNotesRepository,
             coroutineRule.testDispatcher
@@ -40,9 +42,11 @@ class NotesAddUseCaseTest {
             System.currentTimeMillis(),
             4
         )
+        var value = notesAddUseCase(notes).successOr(-1)
+
         Truth.assertThat(
-            notesAddUseCase(notes)
-        ).isEqualTo(Result.Success(true))
+            value
+        ).isEqualTo(notes.id)
 
     }
 
