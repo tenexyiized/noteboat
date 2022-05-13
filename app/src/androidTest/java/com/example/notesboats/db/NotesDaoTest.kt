@@ -118,8 +118,6 @@ class NotesDaoTest {
 
         Truth.assertThat(noteToBeInserted).isEqualTo(notes)
 
-
-
     }
 
     @Test

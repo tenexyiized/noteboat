@@ -67,6 +67,28 @@ class NoteRepositoryImplTest {
 
     }
 
+    @Test
+    fun NotesRetrievedById_NotePresent_NoteReturned() = coroutineRule.runBlockingTest {
+        val note = Notes(
+            "hello",
+            "cello",
+            System.currentTimeMillis(),
+            4
+        )
+        notesRepositoryImpl.insertNotes(note)
+
+       val noteRetrieved = notesRepositoryImpl.getNote(note.id!!)
+        Truth.assertThat(note).isEqualTo(noteRetrieved)
+
+    }
+
+    @Test
+    fun NotesRetrievedById_NoteNotPresent_NullReturned() = coroutineRule.runBlockingTest {
+        val noteRetrieved = notesRepositoryImpl.getNote(5)
+        Truth.assertThat(noteRetrieved).isEqualTo(null)
+
+    }
+
 
 
         class NotesDaoTd : NotesDao{
@@ -87,7 +109,9 @@ class NoteRepositoryImplTest {
             }
 
             override suspend fun getNote(id: Long): Notes? {
-                return null
+                return list.find {
+                    it.id == id
+                }
             }
         }
     }
