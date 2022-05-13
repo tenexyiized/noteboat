@@ -73,8 +73,9 @@ class NoteRepositoryImplTest {
 
             var list = mutableListOf<Notes>()
 
-            override suspend fun insertNotes(notes: Notes) {
+            override suspend fun insertNotes(notes: Notes):Long {
                 list.add(notes)
+                return notes.id!!.toLong()
             }
 
             override suspend fun deleteNotes(notes: Notes) {
