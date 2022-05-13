@@ -75,7 +75,7 @@ class NoteRepositoryImplTest {
 
             override suspend fun insertNotes(notes: Notes):Long {
                 list.add(notes)
-                return notes.id!!.toLong()
+                return notes.id!!
             }
 
             override suspend fun deleteNotes(notes: Notes) {
@@ -84,6 +84,10 @@ class NoteRepositoryImplTest {
 
             override fun getAllNotes(): Flow<List<Notes>> = flow {
                 emit(list)
+            }
+
+            override suspend fun getNote(id: Long): Notes? {
+                return null
             }
         }
     }

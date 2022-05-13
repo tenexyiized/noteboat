@@ -118,5 +118,9 @@ class NotesDaoTest {
 
         Truth.assertThat(noteToBeInserted).isEqualTo(notes)
 
+        val notesToBeNNull = dao.getNote(5)
+
+        Truth.assertThat(notesToBeNNull).isNull()
+
     }
 }

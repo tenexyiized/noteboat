@@ -12,7 +12,7 @@ class FakeNotesRepository : NotesRepository{
 
     override suspend fun insertNotes(notes: Notes):Long {
         list.add(notes)
-        return notes.id!!.toLong()
+        return notes.id!!
     }
 
     override suspend fun deleteNotes(notes: Notes) {
@@ -22,6 +22,10 @@ class FakeNotesRepository : NotesRepository{
     override fun getAllNotes(): Flow<List<Notes>> = flow {
         isListFetched = true
         emit(list)
+    }
+
+    override suspend fun getNote(id: Long): Notes? {
+       return null
     }
 
 }

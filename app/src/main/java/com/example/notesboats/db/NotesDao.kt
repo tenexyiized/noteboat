@@ -16,6 +16,6 @@ interface NotesDao {
     fun getAllNotes(): Flow<List<Notes>>
 
     @Query("select * from notes where id=:id")
-    suspend fun getNote(id:Long):Notes
+    suspend fun getNote(id:Long):Notes?
 
 }

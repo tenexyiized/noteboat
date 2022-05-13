@@ -16,4 +16,6 @@ class NoteRepositoryImpl(val notesDao: NotesDao) : NotesRepository{
 
     override fun getAllNotes(): Flow<List<Notes>> = notesDao.getAllNotes()
 
+    override suspend fun getNote(id: Long): Notes? = notesDao.getNote(id)
+
 }
