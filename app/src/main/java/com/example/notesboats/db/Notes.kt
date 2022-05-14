@@ -9,5 +9,5 @@ data class Notes (
     var description:String,
     var lastUpdated:Long,
     @PrimaryKey(autoGenerate = true)
-    val id:Long? = null
+    var id:Long? = null
         )

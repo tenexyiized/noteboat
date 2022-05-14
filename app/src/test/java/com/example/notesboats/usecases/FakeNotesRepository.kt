@@ -27,7 +27,9 @@ class FakeNotesRepository : NotesRepository{
 
     override suspend fun getNote(id: Long): Notes? {
         idToBeRetreived = id
-       return null
+       return list.find {
+           it.id == idToBeRetreived
+       }
     }
 
 }

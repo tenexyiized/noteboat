@@ -2,11 +2,13 @@ package com.example.notesboats.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.common.result.successOr
+import com.example.common.viewstates.NoteAddViewState
 import com.example.notesboats.db.Notes
 import com.example.notesboats.rules.main.MainCoroutineRule
 import com.example.notesboats.rules.main.runBlockingTest
 import com.example.notesboats.usecases.FakeNotesRepository
 import com.example.notesboats.usecases.GetAllNotesUseCase
+import com.example.notesboats.usecases.GetNoteByIdUseCase
 import com.example.notesboats.usecases.NotesAddUseCase
 import com.google.common.truth.Truth
 import kotlinx.coroutines.flow.first
@@ -26,6 +28,7 @@ class NotesAddViewModelTest{
 
     private lateinit var notesAddViewModel: NotesAddViewModel
     private lateinit var getAllNotesUseCase: GetAllNotesUseCase
+    private lateinit var getNoteByIdUseCase: GetNoteByIdUseCase
 
     @Before
     fun setUp() {
@@ -34,12 +37,11 @@ class NotesAddViewModelTest{
             NotesAddUseCase(
                 fakeNotesRepository,
                 coroutineRule.testDispatcher
+            ),
+            GetNoteByIdUseCase(
+                fakeNotesRepository,
+                coroutineRule.testDispatcher
             )
-        )
-
-        getAllNotesUseCase = GetAllNotesUseCase(
-            coroutineRule.testDispatcher,
-            fakeNotesRepository
         )
     }
 
@@ -52,14 +54,24 @@ class NotesAddViewModelTest{
             4
         )
         notesAddViewModel.addNotes(noteToBeInserted)
-
-        var result:com.example.common.result.Result<List<Notes>> = getAllNotesUseCase(Unit).first()
-
-        var list = result.successOr(mutableListOf())
-
-        Truth.assertThat(list).contains(noteToBeInserted)
-
+        var uiState:NoteAddViewState = notesAddViewModel.uiState.first()
+        Truth.assertThat(uiState.id).isEqualTo(4)
     }
+
+    @Test
+    fun noteGetByIdSuccess() = coroutineRule.runBlockingTest {
+        val noteToBeInserted = Notes(
+            "hello",
+            "cello",
+            System.currentTimeMillis(),
+            4
+        )
+        notesAddViewModel.addNotes(noteToBeInserted)
+        notesAddViewModel.getNotes(4)
+        var uiState:NoteAddViewState = notesAddViewModel.uiState.first()
+        Truth.assertThat(uiState.note!!.getContentIfNotHandled()).isEqualTo(noteToBeInserted)
+    }
+
 
     @After
     fun tearDown() {
