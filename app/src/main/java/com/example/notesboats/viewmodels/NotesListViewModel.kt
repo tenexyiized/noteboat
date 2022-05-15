@@ -31,13 +31,13 @@ constructor(
         else{
             getViewState()
         }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), initialValue = NoteListViewState())
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), initialValue = NoteListViewState())
 
     fun deleteNotes(notes: Notes) = viewModelScope.launch {
         notesDeleteUseCase(notes)
     }
 
-    fun getViewState() = uiState.value
+    private fun getViewState() = uiState.value
 
 
 }

@@ -5,6 +5,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import androidx.fragment.app.FragmentManager
+import com.example.notesboats.fragments.NotesAddFragmennt
+import com.example.notesboats.fragments.NotesListFragment
 import com.example.notesboats.test_fragments.*
 
 class ScreenNavigationImpl (
@@ -64,4 +66,24 @@ class ScreenNavigationImpl (
         helper.popBackTo("BlankFragment2", FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
+    override fun openNotesList() {
+        val fragment: Fragment = fragmentFactory.instantiate(
+            activity.getClassLoader(),
+            NotesListFragment::class.java.getName()
+        )
+        helper.replaceFragment(fragment, addToBackStack = false)
+    }
+
+
+    override fun openAddNotesPage(id: Long?) {
+        val fragment: Fragment = fragmentFactory.instantiate(
+            activity.getClassLoader(),
+            NotesAddFragmennt::class.java.getName()
+        )
+        val bundle = bundleOf()
+        id?.let{
+             bundle.putLong("id",id)
+        }
+        helper.replaceFragment(fragment,bundle = bundle, backStackName = NotesAddFragmennt.TAG)
+    }
 }

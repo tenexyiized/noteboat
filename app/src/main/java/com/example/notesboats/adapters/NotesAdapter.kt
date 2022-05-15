@@ -12,8 +12,8 @@ import com.example.notesboats.viewholders.NoteViewHolder
 class NotesAdapter(val noteInteractor: NoteInteractor) : ListAdapter<Notes, RecyclerView.ViewHolder>(BlockDiff){
 
     interface NoteInteractor{
-        fun noteDeleted(id:Long)
-        fun noteClicked(id:Long)
+        fun noteDeleted(notes:Notes)
+        fun noteClicked(id:Long?)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

@@ -16,4 +16,8 @@ interface ScreenNavigator {
 
     fun goBackFromFragment5ToFragment2()
 
+    fun openNotesList()
+
+    fun openAddNotesPage(id:Long?)
+
 }

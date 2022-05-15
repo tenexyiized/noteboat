@@ -38,10 +38,10 @@ class MainActivity : AppCompatActivity(), FragmentContainerWrapper {
         setContentView(R.layout.activity_main)
 
         if (savedInstanceState == null) {
-            screenNavigator.openBlankFragment2()
+            screenNavigator.openNotesList()
         }
 
-        dialogManager.showSomePrompt("info","a","b","c","d")
+        //dialogManager.showSomePrompt("info","a","b","c","d")
 
 //        permissionHelper.requestPermission(
 //            Manifest.permission.READ_EXTERNAL_STORAGE,

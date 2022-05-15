@@ -7,4 +7,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class NotesAddFragmennt : Fragment(R.layout.fragment_notes_add){
 
+    companion object{
+        val TAG = "NotesAddFragmennt"
+    }
+
 }
