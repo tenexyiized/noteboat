@@ -10,6 +10,7 @@ import com.example.notesboats.R
 import com.example.notesboats.db.Notes
 import com.example.notesboats.viewmodels.NotesAddViewModel
 import com.example.notesboats.viewmodels.NotesListViewModel
+import com.example.showToast
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -36,10 +37,17 @@ class NotesAddFragmennt : Fragment(R.layout.fragment_notes_add){
 
         val id = arguments?.getLong("id")
 
-        id?.let{
-            viewModel.setId(it)
-            viewModel.getNotes(it)
-        }
+        showToast("id is" + id)
+
+
+            id?.let{
+                if(it>0){
+                    viewModel.setId(it)
+                    viewModel.getNotes(it)
+                }
+            }
+
+
 
         btn.setOnClickListener {
             viewModel.addNotes(
