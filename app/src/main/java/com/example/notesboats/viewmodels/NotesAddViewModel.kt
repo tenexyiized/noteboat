@@ -20,8 +20,8 @@ import com.example.common.result.Result
 class NotesAddViewModel
 @Inject
 constructor(
-    val notesAddUseCase: NotesAddUseCase,
-    val getNoteByIdUseCase: GetNoteByIdUseCase
+    private val notesAddUseCase: NotesAddUseCase,
+    private val getNoteByIdUseCase: GetNoteByIdUseCase
 ): ViewModel(){
 
    private var _uiState:MutableStateFlow<NoteAddViewState> = MutableStateFlow(NoteAddViewState())
@@ -39,6 +39,12 @@ constructor(
                 )
             }
         }
+    }
+
+    fun setId(id:Long){
+        _uiState.value = getViewState().copy(
+            id = id
+        )
     }
 
     fun getNotes(id:Long){
