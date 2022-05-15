@@ -1,5 +1,6 @@
 package com.example.notesboats.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.viewstates.NoteAddViewState
@@ -24,9 +25,11 @@ constructor(
 
     val uiState: StateFlow<NoteListViewState> = getAllNotesUseCase(Unit).map {
         if(it is Result.Success){
-            getViewState().apply {
+            Log.d("cnrd","hella " + it.data.size)
+            val x = getViewState().copy(
                 notesList = it.data
-            }
+            )
+            x
         }
         else{
             getViewState()
